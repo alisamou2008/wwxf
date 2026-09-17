@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能分案 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="admin" data-page="assign">
+<div class="main">
+  <div class="topbar"><span class="crumb">管理端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">智能分案</div>
+    <div class="page-desc">步骤：选择法院 → 待分案案件 → 勾选参与调解人员 → 智能分案结果 → 人工审核调整 → 确认分案</div>
+    <div class="note">退案池案件自动排除，不受分案规则影响（去 <a href="admin-returns.html">退案管理</a> 人工指派）</div>
+    <div class="card">
+      <h3>① 选择法院与规则（各法院独立配置）</h3>
+      <div class="filter-bar">
+        <select><option>涪陵区人民法院</option><option>万州区人民法院</option><option>渝中区人民法院</option></select>
+        <span style="font-size:12px;color:var(--text-2)">三维度权重：数量 50% / 标的 30% / 类型 20%</span>
+        <button class="btn sm demo-btn" data-msg="规则配置（演示）">配置规则</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>② 待分案案件（涪陵区人民法院 · 12 件）</h3>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th><input type="checkbox" checked></th><th>案号</th><th>类型</th><th>标的额</th><th>委派时间</th></tr>
+        <tr><td><input type="checkbox" checked></td><td>FL2026090012</td><td>物业纠纷</td><td>¥12,000</td><td>09-16</td></tr>
+        <tr><td><input type="checkbox" checked></td><td>FL2026090013</td><td>买卖合同</td><td>¥45,000</td><td>09-16</td></tr>
+        <tr><td><input type="checkbox" checked></td><td>FL2026090014</td><td>民间借贷</td><td>¥80,000</td><td>09-17</td></tr>
+      </table></div>
+    </div>
+    <div class="card">
+      <h3>③ 参与调解人员勾选（带主管标识至少 1 人，普通调解员至少 1 人）</h3>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>勾选</th><th>姓名</th><th>标识</th><th>在办数</th><th>在办标的</th><th>擅长类型</th></tr>
+        <tr><td><input type="checkbox" checked></td><td>张主管</td><td><span class="badge purple">主管标识</span></td><td>18</td><td>¥96万</td><td>金融/借贷</td></tr>
+        <tr><td><input type="checkbox" checked></td><td>李调解</td><td><span class="badge gray">普通</span></td><td>15</td><td>¥62万</td><td>借贷/物业</td></tr>
+        <tr><td><input type="checkbox" checked></td><td>王调解</td><td><span class="badge gray">普通</span></td><td>12</td><td>¥44万</td><td>买卖合同</td></tr>
+      </table></div>
+      <button class="btn primary demo-btn" style="margin-top:12px" data-msg="智能分案计算（演示）">开始智能分案</button>
+    </div>
+    <div class="card">
+      <h3>④⑤ 分案结果与人工调整（支持拖拽案件到其他调解员）</h3>
+      <div class="grid c3">
+        <div class="rule-card"><b>张主管（主管标识）</b><div style="font-size:12px;color:var(--text-2);margin-top:6px">分得 1 件 · 标的 ¥80,000</div><div style="margin-top:8px;font-size:12px">FL2026090014 民间借贷</div></div>
+        <div class="rule-card"><b>李调解</b><div style="font-size:12px;color:var(--text-2);margin-top:6px">分得 1 件 · 标的 ¥12,000</div><div style="margin-top:8px;font-size:12px">FL2026090012 物业纠纷</div></div>
+        <div class="rule-card"><b>王调解</b><div style="font-size:12px;color:var(--text-2);margin-top:6px">分得 1 件 · 标的 ¥45,000</div><div style="margin-top:8px;font-size:12px">FL2026090013 买卖合同</div></div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn primary demo-btn" data-msg="确认分案并通知（演示）">⑥ 确认分案</button>
+        <button class="btn demo-btn" data-msg="重新计算（演示）">重新计算</button>
+      </div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 已取消忙碌值设计，分案不考虑忙碌阈值</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

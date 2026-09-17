@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>调解进度看板 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="ops" data-page="board">
+<div class="main">
+  <div class="topbar"><span class="crumb">操作端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">调解进度看板</div>
+    <div class="page-desc">操作端专属 · 按阶段分列，可拖拽推进；遇审批节点弹出审批（结案/司法确认/终结）+留痕</div>
+    <div class="note">拖拽为演示交互；案件移入「待结案审批」等节点时将触发审批弹窗（管理员或带主管标识调解员审批）。</div>
+    <div class="kanban">
+      <div class="col"><h4>待受理 <span>2</span></h4>
+        <div class="kcard"><b>FL2026090016</b>民间借贷 · ¥2万<div style="margin-top:4px;color:var(--text-2)">剩余 7 天</div></div>
+        <div class="kcard"><b>WZ2026090017</b>物业纠纷 · ¥0.68万<div style="margin-top:4px;color:var(--text-2)">剩余 15 天</div></div>
+      </div>
+      <div class="col"><h4>调解中 <span>9</span></h4>
+        <div class="kcard"><b>FL2026090001</b>民间借贷 · ¥5万<div style="margin-top:4px;color:var(--red)">⚠ 剩余 2 天</div></div>
+        <div class="kcard"><b>YZ2026090010</b>买卖合同 · ¥8.6万<div style="margin-top:4px;color:var(--text-2)">剩余 8 天</div></div>
+      </div>
+      <div class="col"><h4>待签署 <span>2</span></h4>
+        <div class="kcard"><b>WZ2026090004</b>金融借款 · ¥12万<div style="margin-top:4px;color:var(--red)">⚠ 已超期</div></div>
+      </div>
+      <div class="col"><h4>待结案审批 <span>1</span></h4>
+        <div class="kcard"><b>FL2026090002</b>调解成功<button class="btn sm primary demo-btn" style="margin-top:6px" data-msg="结案审批：管理员或带主管标识调解员审批，动作写审计日志（演示）">审批</button></div>
+      </div>
+      <div class="col"><h4>已结案 <span>2</span></h4>
+        <div class="kcard"><b>WZ2026090002</b>调解书 · 09-15</div>
+        <div class="kcard"><b>FL2026090005</b>司法确认 · 09-10</div>
+      </div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 结案/司法确认状态由代码从官方平台自动同步（仅结案状态、结案日期、司法确认申请状态三类字段）</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

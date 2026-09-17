@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>调解工作台 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="ops" data-page="workbench">
+<div class="main">
+  <div class="topbar"><span class="crumb">操作端</span>
+    <span class="user"></span>
+    <span style="display:flex;gap:6px;margin-left:16px">
+      <button class="btn sm primary">全部</button><button class="btn sm">涪陵</button><button class="btn sm">万州</button>
+    </span>
+  </div>
+  <div class="content">
+    <div class="page-title">调解工作台</div>
+    <div class="page-desc">调解员登录默认首页 · 布局基线：待办优先（今日待办与期限临期在前，案件总览收起为次屏列表）</div>
+    <div class="grid c4">
+      <div class="stat"><div class="label">今日待办</div><div class="value" style="color:var(--orange)">5</div><div class="delta"><a href="ops-todo.html">去处理 →</a></div></div>
+      <div class="stat"><div class="label">在办案件</div><div class="value">15</div></div>
+      <div class="stat"><div class="label">临期案件（≤3天）</div><div class="value" style="color:var(--red)">2</div><div class="delta">到期前2–3天联系当事人确认意向</div></div>
+      <div class="stat"><div class="label">本月实收（本人）</div><div class="value">¥26,870</div></div>
+    </div>
+    <div class="grid c2" style="margin-top:16px">
+      <div class="card">
+        <h3>关注事项提醒</h3>
+        <table class="tbl"><tr><th>事项</th><th>案件</th><th>紧迫度</th></tr>
+        <tr><td>临期：需联系当事人确认调解意向</td><td><a href="ops-cases.html">FL2026090001</a></td><td><span class="badge red">剩余 2 天</span></td></tr>
+        <tr><td>临期：可走延期申请（1次/30天）</td><td>WZ2026090004</td><td><span class="badge red">已超期 1 天</span></td></tr>
+        <tr><td>文书待签署</td><td>FL2026090002</td><td><span class="badge orange">今日内</span></td></tr></table>
+      </div>
+      <div class="card">
+        <h3>预警信息</h3>
+        <table class="tbl"><tr><th>类型</th><th>说明</th></tr>
+        <tr><td><span class="badge orange">折让预警</span></td><td>FL2026090005 实收/应收 82%（低于阈值，提示不阻断）</td></tr>
+        <tr><td><span class="badge blue">排期冲突</span></td><td>明日 10:00 两场调解重叠，请调整（<a href="ops-schedule.html">排期日历</a>）</td></tr></table>
+      </div>
+    </div>
+    <div class="grid c2">
+      <div class="card">
+        <h3>案件类型分布（本月）</h3>
+        <div style="font-size:12px;line-height:2.2">民间借贷 38%<div class="progress-track"><div class="progress-fill" style="width:38%"></div></div>买卖合同 22%<div class="progress-track"><div class="progress-fill" style="width:22%"></div></div>物业纠纷 18%<div class="progress-track"><div class="progress-fill" style="width:18%"></div></div>其他 22%<div class="progress-track"><div class="progress-fill" style="width:22%"></div></div></div>
+      </div>
+      <div class="card">
+        <h3>近期案件动态（时间线）</h3>
+        <table class="tbl"><tr><th>时间</th><th>动态</th></tr>
+        <tr><td>09-17 09:12</td><td>新案件委派：FL2026090016（待受理）</td></tr>
+        <tr><td>09-16 16:20</td><td>调解记录已归档：FL2026090001</td></tr>
+        <tr><td>09-16 10:00</td><td>文书签署完成：收费告知书 FL2026090002</td></tr></table>
+      </div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 带主管标识的调解员另享「法院数据全景」等专属功能（左侧菜单）</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

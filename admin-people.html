@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人员管理 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="admin" data-page="people">
+<div class="main">
+  <div class="topbar"><span class="crumb">管理端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">人员管理</div>
+    <div class="page-desc">账号管理 / 主管标识勾选 / 机构绑定审核 / 权限分配 / 标签配置</div>
+    <div class="tabs"><div class="tab active">调解员列表</div><div class="tab">机构绑定审核（2）</div><div class="tab">主管标识调整</div></div>
+    <div data-tab-panel>
+      <div class="filter-bar"><select><option>全部法院</option><option>涪陵</option><option>万州</option></select><select><option>全部标识</option><option>主管标识</option><option>普通</option></select><input placeholder="搜索姓名/手机号"><button class="btn primary demo-btn">搜索</button><button class="btn demo-btn">新增调解员</button></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>姓名</th><th>角色</th><th>标识</th><th>所属组织</th><th>绑定法院</th><th>标签</th><th>账号状态</th><th>操作</th></tr>
+        <tr><td>张主管</td><td>调解员</td><td><span class="badge purple">主管标识</span></td><td>涪陵调解中心</td><td>涪陵、万州</td><td>A级 / 借贷</td><td><span class="badge green">启用</span></td><td><button class="btn sm demo-btn">权限分配</button> <button class="btn sm demo-btn">停用</button></td></tr>
+        <tr><td>李调解</td><td>调解员</td><td><span class="badge gray">普通</span></td><td>涪陵调解中心</td><td>涪陵</td><td>B级 / 物业</td><td><span class="badge green">启用</span></td><td><button class="btn sm demo-btn">权限分配</button> <button class="btn sm demo-btn">停用</button></td></tr>
+        <tr><td>王调解</td><td>调解员</td><td><span class="badge gray">普通</span></td><td>万州调解工作室</td><td>万州、渝中</td><td>B级 / 合同</td><td><span class="badge green">启用</span></td><td><button class="btn sm demo-btn">权限分配</button> <button class="btn sm demo-btn">停用</button></td></tr>
+      </table></div>
+      <div style="font-size:11px;color:var(--text-2);margin-top:8px">主管标识勾选/调整留痕即时生效；登录身份仅两种（系统管理员/调解员），主管是管理属性</div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>申请人</th><th>申请绑定（法院+组织）</th><th>提交时间</th><th>状态</th><th>操作</th></tr>
+        <tr><td>赵调解（注册）</td><td>渝中区人民法院 + 渝中调解中心</td><td>09-16 10:00</td><td><span class="badge orange">待审核</span></td><td><button class="btn sm primary demo-btn" data-msg="通过：立即获得该法院数据可见权限（演示）">通过</button> <button class="btn sm danger demo-btn" data-msg="驳回：须填写原因（演示）">驳回</button></td></tr>
+        <tr><td>钱调解（新增绑定）</td><td>万州区人民法院 + 万州调解工作室</td><td>09-17 09:30</td><td><span class="badge orange">待审核</span></td><td><button class="btn sm primary demo-btn" data-msg="通过（演示）">通过</button> <button class="btn sm danger demo-btn" data-msg="驳回（演示）">驳回</button></td></tr>
+      </table></div>
+      <div style="font-size:11px;color:var(--text-2);margin-top:8px">机构绑定是数据可见性总开关：审核通过前该法院数据对申请人不可见</div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>姓名</th><th>当前标识</th><th>管辖范围</th><th>操作</th></tr>
+        <tr><td>张主管</td><td><span class="badge purple">主管标识</span></td><td>涪陵、万州（多选）</td><td><button class="btn sm demo-btn" data-msg="取消主管标识（留痕，演示）">取消标识</button></td></tr>
+        <tr><td>李调解</td><td><span class="badge gray">无</span></td><td>—</td><td><button class="btn sm primary demo-btn" data-msg="勾选主管标识（留痕，演示）">设为主管标识</button></td></tr>
+      </table></div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 演示数据虚构</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

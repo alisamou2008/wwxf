@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>操作日志 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="admin" data-page="logs">
+<div class="main">
+  <div class="topbar"><span class="crumb">管理端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">操作日志</div>
+    <div class="page-desc">全平台操作审计 · 强制留痕：关键节点审批、强制结案、案件删除/退回、申请返回全链路、主管标识调整、机构绑定审核、费用纠错、月结重跑、规则配置变更</div>
+    <div class="filter-bar">
+      <select><option>全部模块</option><option>案件管理</option><option>退案管理</option><option>智能分案</option><option>费用</option></select>
+      <select><option>全部操作人</option><option>系统管理员</option><option>张主管</option><option>李调解</option></select>
+      <input type="date" value="2026-09-10"> — <input type="date" value="2026-09-17">
+      <button class="btn primary demo-btn">筛选</button><button class="btn demo-btn">导出</button>
+    </div>
+    <div class="tbl-wrap"><table class="tbl">
+      <tr><th>时间</th><th>操作人</th><th>角色</th><th>模块</th><th>类型</th><th>内容</th><th>IP</th><th>结果</th></tr>
+      <tr><td>09-17 09:12</td><td>张主管</td><td>调解员（主管标识）</td><td>退案管理</td><td>申请返回</td><td>YZ2026090003 系列案需集中处理</td><td>10.2.*.*</td><td><span class="badge orange">待审核</span></td></tr>
+      <tr><td>09-16 16:05</td><td>王调解</td><td>调解员</td><td>案件管理</td><td>申请返回</td><td>FL2026090008 利益关联回避</td><td>10.2.*.*</td><td><span class="badge orange">待审核</span></td></tr>
+      <tr><td>09-16 15:30</td><td>系统管理员</td><td>系统管理员</td><td>退案管理</td><td>人工指派</td><td>WZ2026090011 → 李调解（直接换人，不参与智能分案）</td><td>10.1.*.*</td><td><span class="badge green">成功</span></td></tr>
+      <tr><td>09-16 11:20</td><td>系统管理员</td><td>系统管理员</td><td>系统设置</td><td>规则变更</td><td>涪陵法院调解费比例 45% → 50%</td><td>10.1.*.*</td><td><span class="badge green">成功</span></td></tr>
+      <tr><td>09-15 17:42</td><td>张主管</td><td>调解员（主管标识）</td><td>案件管理</td><td>结案审批</td><td>WZ2026090002 调解成功结案</td><td>10.2.*.*</td><td><span class="badge green">成功</span></td></tr>
+      <tr><td>09-15 09:00</td><td>系统管理员</td><td>系统管理员</td><td>案件管理</td><td>查看案件</td><td>FL2026090001（显式标识「系统管理员操作」）</td><td>10.1.*.*</td><td><span class="badge green">成功</span></td></tr>
+      <tr><td>09-14 14:10</td><td>李调解</td><td>调解员</td><td>费用</td><td>登记实收</td><td>FL2026090001 ¥500（微信，凭证已传）</td><td>10.2.*.*</td><td><span class="badge green">成功</span></td></tr>
+    </table></div>
+    <div class="footer-note">问问调解平台 DEMO · 日志查看入口仅系统管理员</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

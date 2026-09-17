@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>外呼记录 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="ops" data-page="calls">
+<div class="main">
+  <div class="topbar"><span class="crumb">操作端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">外呼记录</div>
+    <div class="page-desc">时间线/列表双视图 · 录音上传（必须）· 统计分析</div>
+    <div class="note">录音记录表单字段已由 6 条扩容至 15 条（2026-09-16 会议），新增字段清单待业务补充后更新表单。</div>
+    <div class="grid c4" style="margin-bottom:14px">
+      <div class="stat"><div class="label">总外呼次数</div><div class="value">47</div></div>
+      <div class="stat"><div class="label">已接通</div><div class="value">31</div></div>
+      <div class="stat"><div class="label">接通率</div><div class="value">66%</div></div>
+      <div class="stat"><div class="label">平均时长</div><div class="value">286 秒</div></div>
+    </div>
+    <div class="filter-bar">
+      <select><option>全部案件</option><option>FL2026090001</option></select>
+      <select><option>全部结果</option><option>接通-有意愿</option><option>未接通</option></select>
+      <input type="date" value="2026-09-01"> — <input type="date" value="2026-09-17">
+      <button class="btn primary demo-btn">筛选</button>
+      <span style="font-size:11px;color:var(--text-2)">视图：时间线 ⊙ / 列表 ○</span>
+      <button class="btn demo-btn" data-msg="新增外呼记录（演示）">+ 新增外呼记录</button>
+    </div>
+    <div class="card">
+      <h3>时间线（按日期分组）</h3>
+      <table class="tbl">
+        <tr><th>时间</th><th>案件</th><th>外呼对象</th><th>时长</th><th>结果</th><th>录音</th><th>备注</th></tr>
+        <tr><td>09-17 09:30</td><td>FL2026090001</td><td>被告 刘某</td><td>324s</td><td><span class="badge green">接通-有意愿</span></td><td>▶ 播放</td><td>约定周五到庭</td></tr>
+        <tr><td>09-16 16:20</td><td>WZ2026090004</td><td>原告 周某</td><td>0s</td><td><span class="badge gray">未接通-关机</span></td><td>▶ 播放</td><td>—</td></tr>
+        <tr><td>09-15 10:12</td><td>YZ2026090010</td><td>被告 乙公司</td><td>512s</td><td><span class="badge orange">接通-需考虑</span></td><td>▶ 播放</td><td>对违约金有异议</td></tr>
+      </table>
+    </div>
+    <div class="grid c2">
+      <div class="card"><h3>外呼结果分布</h3>
+        <div style="font-size:12px;line-height:2.2">接通-有意愿 34%<div class="progress-track"><div class="progress-fill" style="width:34%;background:var(--green)"></div></div>接通-需考虑 18%<div class="progress-track"><div class="progress-fill" style="width:18%;background:var(--orange)"></div></div>接通-拒绝 13%<div class="progress-track"><div class="progress-fill" style="width:13%;background:var(--red)"></div></div>未接通 35%<div class="progress-track"><div class="progress-fill" style="width:35%;background:#b8bec9"></div></div></div>
+      </div>
+      <div class="card"><h3>每日外呼趋势（近 7 天）</h3>
+        <table class="tbl"><tr><th>日期</th><th>09-11</th><th>09-12</th><th>09-13</th><th>09-14</th><th>09-15</th><th>09-16</th><th>09-17</th></tr>
+        <tr><td>次数</td><td>8</td><td>6</td><td>9</td><td>7</td><td>8</td><td>5</td><td>4</td></tr></table>
+      </div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 新增外呼必须上传录音（mp3/wav/m4a，≤50MB）</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>
