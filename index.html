@@ -7,28 +7,95 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<div class="login-wrap">
-  <div class="login-card">
-    <h1>⚖ 问问调解平台</h1>
-    <div class="sub">法院调解业务管理系统 2.0 · 可演示原型（DEMO，数据均为虚构）</div>
-    <label>手机号</label>
-    <input type="text" placeholder="请输入手机号" value="138****6688">
-    <label>验证码</label>
-    <div class="code-row">
-      <input type="text" placeholder="请输入验证码" value="888888">
-      <button class="btn demo-btn" data-msg="验证码已发送（演示）">获取验证码</button>
-    </div>
-    <button class="login-btn" onclick="alert('演示：登录成功，请选择下方角色进入对应端')">登 录</button>
-    <div class="role-pick">
-      <div class="hint">DEMO 快捷入口 —— 选择角色直接进入（登录身份仅两种，主管为调解员的管理属性）：</div>
-      <div class="role-btns">
-        <a class="role-btn" href="admin.html"><b>系统管理员</b><span>设置层 · 全平台管理</span></a>
-        <a class="role-btn" href="ops.html"><b>调解员</b><span>操作端 · 普通调解员</span></a>
-        <a class="role-btn" href="ops.html" onclick="sessionStorage.setItem('sup','1')"><b>调解员（主管标识）</b><span>操作端 · 含主管专属功能</span></a>
+<div class="login-page">
+
+  <!-- 左侧品牌区（复刻线上登录页） -->
+  <div class="login-left">
+    <div class="brand-content">
+      <div class="brand-logo">⚖</div>
+      <h1 class="brand-title">问问调解平台</h1>
+      <p class="brand-subtitle">智能调解 · 高效化解</p>
+      <div class="brand-features">
+        <div class="feature-item"><span class="fi">🤖</span><span>智能分案引擎</span></div>
+        <div class="feature-item"><span class="fi">✨</span><span>AI智能体赋能</span></div>
+        <div class="feature-item"><span class="fi">📚</span><span>法律法规知识库</span></div>
+        <div class="feature-item"><span class="fi">📊</span><span>院方数据看板</span></div>
       </div>
     </div>
-    <div style="margin-top:14px;font-size:11px;color:#8f959e">注册需管理员审核；注册时选择的法院+调解组织自动生成待审核绑定申请</div>
   </div>
+
+  <!-- 右侧登录区 -->
+  <div class="login-right">
+    <div class="login-container">
+      <div class="login-header">
+        <h2 class="login-title">欢迎登录</h2>
+        <p class="login-desc">请选择您的身份并登录系统</p>
+      </div>
+
+      <!-- 登录身份仅两种：系统管理员 / 调解员（主管为调解员的管理属性，登录窗口统一） -->
+      <div class="role-selector">
+        <div class="role-card" id="card-admin" onclick="pickRole('admin')">
+          <div class="role-icon admin-icon">🛡</div>
+          <div class="role-info">
+            <h3 class="role-name">管理员</h3>
+            <p class="role-desc">系统管理员</p>
+          </div>
+          <div class="role-check" id="check-admin">✓</div>
+        </div>
+        <div class="role-card" id="card-mediator" onclick="pickRole('mediator')">
+          <div class="role-icon mediator-icon">🤝</div>
+          <div class="role-info">
+            <h3 class="role-name">调解员</h3>
+            <p class="role-desc">调解工作台 / 我的案件</p>
+          </div>
+          <div class="role-check" id="check-mediator" style="display:none">✓</div>
+        </div>
+      </div>
+
+      <div class="login-form">
+        <div class="fld">
+          <input type="text" id="username" placeholder="请输入账号" value="demo">
+        </div>
+        <div class="fld">
+          <input type="password" id="password" placeholder="请输入密码" value="123456" onkeyup="if(event.key==='Enter')doLogin()">
+        </div>
+        <div class="login-options">
+          <label><input type="checkbox" id="remember" checked>记住我</label>
+          <a href="javascript:void(0)" class="demo-btn" data-msg="请联系系统管理员重置密码">忘记密码</a>
+        </div>
+        <button class="login-btn" onclick="doLogin()">登 录</button>
+      </div>
+
+      <div class="login-footer">
+        <span class="footer-text">还没有账号？</span><a href="javascript:void(0)" class="demo-btn" data-msg="注册需管理员审核；注册时选择的法院+调解组织自动生成待审核绑定申请">立即注册</a>
+        <span class="footer-divider">|</span><a href="admin.html">返回管理端</a>
+        <span class="footer-divider">|</span><a href="javascript:void(0)" class="demo-btn" data-msg="联系电话：400-xxx-xxxx&#10;联系邮箱：admin@wenwen.com">联系管理员</a>
+      </div>
+
+      <div class="login-demo-hint">
+        DEMO 演示提示：登录身份仅两种（系统管理员 / 调解员），<b>调解主管与调解员使用同一登录窗口</b>，主管仅为调解员的管理属性。<br>
+        演示用快捷入口：<a href="admin.html">管理端</a> · <a href="ops.html">操作端（普通调解员）</a> · <a href="ops.html" onclick="sessionStorage.setItem('sup','1')">操作端（主管标识）</a>
+      </div>
+    </div>
+  </div>
+
 </div>
+<script>
+function pickRole(role) {
+  document.getElementById('card-admin').classList.toggle('active', role === 'admin');
+  document.getElementById('card-mediator').classList.toggle('active', role === 'mediator');
+  document.getElementById('check-admin').style.display = role === 'admin' ? '' : 'none';
+  document.getElementById('check-mediator').style.display = role === 'mediator' ? '' : 'none';
+}
+function doLogin() {
+  var u = document.getElementById('username').value.trim();
+  var p = document.getElementById('password').value.trim();
+  if (!u || !p) { alert('演示：请输入账号和密码'); return; }
+  sessionStorage.removeItem('sup');
+  alert('演示：登录成功（身份：' + (document.getElementById('card-admin').classList.contains('active') ? '系统管理员' : '调解员') + '）');
+  location.href = document.getElementById('card-admin').classList.contains('active') ? 'admin.html' : 'ops.html';
+}
+pickRole('admin');
+</script>
 </body>
 </html>

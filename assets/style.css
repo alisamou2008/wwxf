@@ -104,25 +104,52 @@ table.tbl { width: 100%; border-collapse: collapse; background: #fff; }
 .progress-track { height: 8px; background: #edf0f5; border-radius: 4px; overflow: hidden; }
 .progress-fill { height: 100%; background: var(--primary); border-radius: 4px; }
 
-/* 登录页 */
-.login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1b2a4a 0%, #2456d6 100%); }
-.login-card { width: 400px; background: #fff; border-radius: 14px; padding: 36px 34px; }
-.login-card h1 { font-size: 22px; margin-bottom: 6px; }
-.login-card .sub { color: var(--text-2); font-size: 13px; margin-bottom: 24px; }
-.login-card label { display: block; font-size: 13px; color: var(--text-2); margin: 14px 0 6px; }
-.login-card input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; }
-.login-btn { width: 100%; margin-top: 22px; padding: 11px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; }
-.login-btn:hover { background: var(--primary-dark); }
-.code-row { display: flex; gap: 10px; }
-.code-row input { flex: 1; }
-.code-row .btn { white-space: nowrap; }
-.role-pick { margin-top: 18px; border-top: 1px dashed var(--border); padding-top: 14px; }
-.role-pick .hint { font-size: 12px; color: var(--text-2); margin-bottom: 8px; }
-.role-btns { display: flex; gap: 10px; }
-.role-btn { flex: 1; text-align: center; padding: 12px 8px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; }
-.role-btn:hover, .role-btn.sel { border-color: var(--primary); background: #f0f5ff; color: var(--primary); }
-.role-btn b { display: block; font-size: 14px; }
-.role-btn span { font-size: 11px; color: var(--text-2); }
+/* 登录页（复刻线上 UI：左品牌区 + 右登录区） */
+.login-page { display: flex; min-height: 100vh; }
+.login-left { flex: 1; background: linear-gradient(135deg, #409eff, #66b1ff); display: flex; align-items: center; justify-content: center; padding: 60px; }
+.brand-content { color: #fff; max-width: 500px; }
+.brand-logo { width: 80px; height: 80px; background: rgba(255,255,255,.2); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px; font-size: 40px; }
+.brand-title { font-size: 42px; font-weight: 700; margin-bottom: 12px; }
+.brand-subtitle { font-size: 20px; opacity: .9; margin-bottom: 50px; }
+.brand-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.feature-item { display: flex; align-items: center; gap: 12px; font-size: 16px; opacity: .9; }
+.feature-item .fi { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,.18); display: flex; align-items: center; justify-content: center; }
+.login-right { flex: 1; display: flex; align-items: center; justify-content: center; background: #fff; padding: 60px; }
+.login-container { width: 100%; max-width: 440px; }
+.login-header { text-align: center; margin-bottom: 40px; }
+.login-title { font-size: 32px; font-weight: 700; color: #303133; margin-bottom: 12px; }
+.login-desc { font-size: 16px; color: #909399; }
+.role-selector { display: flex; gap: 16px; margin-bottom: 30px; }
+.role-card { flex: 1; border: 2px solid #e4e7ed; border-radius: 12px; padding: 20px; cursor: pointer; transition: all .3s; position: relative; display: flex; align-items: center; gap: 12px; background: #fff; }
+.role-card:hover { border-color: #c6e2ff; }
+.role-card.active { border-color: #409eff; background: #ecf5ff; }
+.role-icon { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 26px; }
+.admin-icon { background: #ecf5ff; color: #409eff; }
+.mediator-icon { background: #f0f9eb; color: #67c23a; }
+.role-info { flex: 1; }
+.role-name { font-size: 18px; font-weight: 600; color: #303133; margin-bottom: 4px; }
+.role-desc { font-size: 13px; color: #909399; }
+.role-check { position: absolute; top: -9px; right: -9px; width: 22px; height: 22px; border-radius: 50%; background: #409eff; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+.login-form { margin-bottom: 20px; }
+.login-form .fld { margin-bottom: 22px; }
+.login-form input[type=text], .login-form input[type=password] { width: 100%; box-sizing: border-box; padding: 12px 14px; border: 1px solid #dcdfe6; border-radius: 8px; font-size: 15px; outline: none; transition: border-color .2s; }
+.login-form input:focus { border-color: #409eff; }
+.login-options { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 4px; }
+.login-options label { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #606266; cursor: pointer; }
+.login-options a { font-size: 14px; color: #409eff; text-decoration: none; }
+.login-btn { width: 100%; font-size: 16px; font-weight: 600; height: 48px; padding: 0; margin-top: 22px; background: #409eff; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+.login-btn:hover { background: #66b1ff; }
+.login-footer { text-align: center; padding-top: 20px; border-top: 1px solid #ebeef5; }
+.footer-text { color: #606266; font-size: 14px; }
+.footer-divider { color: #dcdfe6; margin: 0 12px; }
+.login-footer a { color: #409eff; text-decoration: none; font-size: 14px; }
+.login-demo-hint { margin-top: 18px; font-size: 12px; color: #909399; background: #f5f7fa; border-radius: 8px; padding: 10px 12px; line-height: 1.8; }
+@media (max-width: 768px) {
+  .login-page { flex-direction: column; }
+  .login-left, .login-right { padding: 40px 20px; }
+  .brand-title { font-size: 32px; }
+  .brand-features { grid-template-columns: 1fr; }
+}
 
 /* 看板列（调解进度看板） */
 .kanban { display: flex; gap: 12px; overflow-x: auto; }
