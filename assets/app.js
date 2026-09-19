@@ -9,6 +9,7 @@
     { id: 'casedetail', label: '案件详情', href: 'admin-case-detail.html', hiddenFromMenu: true },
     { id: 'assign', label: '智能分案', href: 'admin-assign.html' },
     { id: 'returns', label: '退案管理', href: 'admin-returns.html' },
+    { id: 'sync', label: '数据同步', href: 'admin-sync.html', tag: '新' },
     { group: '人员与机构' },
     { id: 'people', label: '人员管理', href: 'admin-people.html' },
     { id: 'base', label: '基础数据', href: 'admin-base.html' },
