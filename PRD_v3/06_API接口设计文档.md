@@ -186,7 +186,7 @@ POST   /api/v1/cases/{id}/close   # 结案操作
 | CASE_ASSIGNMENT_REQUIRED | 400 | 案件需要先分案 |
 | CASE_MEDIATOR_MISMATCH | 403 | 非该案件调解员，无权限操作 |
 | CASE_RETURN_REASON_REQUIRED | 400 | 退回案件必须填写理由 |
-| CASE_RETURN_PENDING | 409 | 该案件已有待审核的申请返回（同一时刻仅允许一条 pending） |
+| CASE_RETURN_PENDING | 409 | 该案件已有待审核的申请转案（同一时刻仅允许一条 pending） |
 
 ### 3.4 分案错误码（4000-4999）
 
@@ -579,15 +579,13 @@ POST   /api/v1/cases/{id}/close   # 结案操作
 
 **说明**：软删除，设置deleted_at字段
 
-#### 5.3.6 确认受理案件
+#### 5.3.6 确认受理案件（已废除，2026-09-20 口径变更）
 
-**接口**：`POST /api/v1/cases/{id}/accept`
+**接口**：`POST /api/v1/cases/{id}/accept`（**废除**）
 
-**权限**：该案件的调解员
+**说明**：调解员取消「待受理/受理确认」环节——案件由系统管理员智能分案确认/人工指派（含转案池重新指派）后直接生效，状态置 `assigned`（已指派）并自动生成「待调解」待办；调解员侧不再调用本接口。
 
-**请求参数**：无
-
-#### 5.3.7 申请返回
+#### 5.3.7 申请转案
 
 **接口**：`POST /api/v1/cases/{id}/return-request`
 
@@ -596,17 +594,17 @@ POST   /api/v1/cases/{id}/close   # 结案操作
 **请求参数**：
 ```json
 {
-  "reason": "申请返回理由（必填）"
+  "reason": "申请转案理由（必填）"
 }
 ```
 
 **说明**（2026-09-15 统一口径，取代原"申请退回"与"申请重新指派"两条并存路径）：
-- 调解员/主管不能直接退回案件，本接口为**申请返回**，由系统管理员审核（同意/驳回）
+- 调解员/主管不能直接退回案件，本接口为**申请转案**，由系统管理员审核（同意/驳回）
 - 同一案件可多次申请（每次留痕），但同一时刻仅允许一条 pending（否则返回 `CASE_RETURN_PENDING`）
-- 审核同意后：案件进入**退案池**（管理端「退案管理」模块统一处理；status→pending_assignment，mediator_id 清空，excluded_from_auto_assignment=true，**不再纳入智能分案规则体系**），由系统管理员在该模块人工指派新调解员
+- 审核同意后：案件进入**转案池**（管理端「转案管理」模块统一处理；status→pending_assignment，mediator_id 清空，excluded_from_auto_assignment=true，**不再纳入智能分案规则体系**），由系统管理员在该模块人工指派新调解员
 - 审核驳回后：案件留在原调解员名下继续调解，驳回原因通知申请人
 
-#### 5.3.8 申请返回审核（管理员）
+#### 5.3.8 申请转案审核（管理员）
 
 **接口**：`POST /api/v1/return-requests/{request_id}/audit`
 
@@ -620,7 +618,7 @@ POST   /api/v1/cases/{id}/close   # 结案操作
 }
 ```
 
-**说明**：action 取 approve / reject。同意后由后端联动更新案件状态并写入审计日志（见 05 §2.13.1），案件进入退案池，后续重新指派走「退案管理」模块对应的人工指派接口（见 5.4.3）；驳回原因回传申请人。
+**说明**：action 取 approve / reject。同意后由后端联动更新案件状态并写入审计日志（见 05 §2.13.1），案件进入转案池，后续重新指派走「转案管理」模块对应的人工指派接口（见 5.4.3）；驳回原因回传申请人。
 
 #### 5.3.9 结案操作
 
@@ -651,7 +649,7 @@ POST   /api/v1/cases/{id}/close   # 结案操作
 - `court_id`：法院ID（必填）
 - `page`、`page_size`
 
-**说明**：自动排除 `excluded_from_auto_assignment=true` 的案件（经"申请返回"审核同意退回的案件不受智能分案规则影响，走人工指派）。
+**说明**：自动排除 `excluded_from_auto_assignment=true` 的案件（经"申请转案"审核同意退回的案件不受智能分案规则影响，走人工指派）。
 
 #### 5.4.1b 获取可勾选的参与调解人员列表
 

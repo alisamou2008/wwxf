@@ -13,7 +13,7 @@
     <div class="page-desc">全平台案件全量可见、可操作；不设"我的案件"入口</div>
     <div class="filter-bar">
       <select><option>全部法院</option><option>涪陵区人民法院</option><option>万州区人民法院</option><option>渝中区人民法院</option></select>
-      <select><option>全部状态</option><option>待分案</option><option>调解中</option><option>待签署</option><option>已结案</option><option>退案池</option></select>
+      <select><option>全部状态</option><option>待分案</option><option>调解中</option><option>待签署</option><option>已结案</option><option>转案池</option></select>
       <select><option>全部类型</option><option>民间借贷</option><option>买卖合同</option><option>物业纠纷</option></select>
       <select><option>全部调解员</option><option>张主管</option><option>李调解</option><option>王调解</option></select>
       <input placeholder="搜索：案号/当事人/手机号">
@@ -24,7 +24,7 @@
       <div class="stat"><div class="label">全部</div><div class="value">480</div></div>
       <div class="stat"><div class="label">待分案</div><div class="value">12</div></div>
       <div class="stat"><div class="label">调解中</div><div class="value">138</div></div>
-      <div class="stat"><div class="label">退案池</div><div class="value" style="color:var(--orange)">5</div><div class="delta"><a href="admin-returns.html">去重新指派 →</a></div></div>
+      <div class="stat"><div class="label">转案池</div><div class="value" style="color:var(--orange)">5</div><div class="delta"><a href="admin-returns.html">去重新指派 →</a></div></div>
     </div>
     <div class="tbl-wrap"><table class="tbl">
       <tr><th><input type="checkbox"></th><th>案号</th><th>法院</th><th>类型</th><th>标的额</th><th>原告/被告</th><th>调解员</th><th>状态</th><th>剩余天数</th><th>操作</th></tr>
@@ -32,7 +32,7 @@
       <tr><td><input type="checkbox"></td><td>WZ2026090004</td><td>万州</td><td>金融借款</td><td>¥120,000</td><td>某银行 / 周某</td><td>张主管</td><td><span class="badge orange">待签署</span></td><td><span class="days-left r">已超期 1 天</span></td><td><a href="admin-case-detail.html">详情</a></td></tr>
       <tr><td><input type="checkbox"></td><td>YZ2026090010</td><td>渝中</td><td>买卖合同</td><td>¥86,000</td><td>甲公司 / 乙公司</td><td>王调解</td><td><span class="badge blue">调解中</span></td><td><span class="days-left o">8 天</span></td><td><a href="admin-case-detail.html">详情</a></td></tr>
       <tr><td><input type="checkbox"></td><td>FL2026090012</td><td>涪陵</td><td>物业纠纷</td><td>¥12,000</td><td>某物业 / 赵某</td><td>—</td><td><span class="badge gray">待分案</span></td><td>—</td><td><a href="admin-assign.html">去分案</a></td></tr>
-      <tr><td><input type="checkbox"></td><td>WZ2026090015</td><td>万州</td><td>民间借贷</td><td>¥30,000</td><td>吴某 / 郑某</td><td>—（原：李调解）</td><td><span class="badge purple">退案池</span></td><td>—</td><td><a href="admin-returns.html">重新指派</a></td></tr>
+      <tr><td><input type="checkbox"></td><td>WZ2026090015</td><td>万州</td><td>民间借贷</td><td>¥30,000</td><td>吴某 / 郑某</td><td>—（原：李调解）</td><td><span class="badge purple">转案池</span></td><td>—</td><td><a href="admin-returns.html">重新指派</a></td></tr>
     </table></div>
     <div class="footer-note">问问调解平台 DEMO · 演示数据虚构 · 批量删除需二次确认</div>
   </div>
