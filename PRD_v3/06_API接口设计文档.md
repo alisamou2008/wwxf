@@ -6,6 +6,8 @@
 **技术栈**：Supabase + Vercel Serverless Functions
 
 > **【2026-09-20 AI 判断盒子同步（v3）】**：新增《调解工作流-AI预判盒子技术方案》——工作流 10 个判断点封装为轻量「判断盒子」，接口见新增「五之二」章；数据表 `ai_box_runs` 见《05》2.25。
+> **【2026-09-23 数据同步双入口新口径（v3）】**：新增《双入口抓取+飞书多维表统一去重+Supabase同步技术方案》评估并采纳——§5.20 重写为双入口（入口B 本地 FastAPI `POST /api/crawl-case` + 入口A 智能体）、多维表缓冲去重、单向同步 Supabase（业务主库）；数据主库口径由「多维表唯一数据源」变更为「Supabase 主库」。详见《00》第十九章。
+
 > **【2026-09-20 技术分层架构同步（v3）】**：新增《调解平台-技术分层架构》——五层架构（前端/业务服务/AI 中台/签署中台/共享底座）与现有接口的逻辑归属映射，见新增「五之三」章；模块框架见《00》第十八章。
 
 > **【2026-09-14 角色模型变更】**：`role` 仅两值（admin/mediator），主管能力由 `mediators.is_supervisor` 布尔标识叠加（注册审核时勾选），详见 01/05 文档。本文档中「调解员（主管标识）」= role=mediator 且 is_supervisor=true；权限判断统一为 `role + is_supervisor + approvedCourtIds` 三要素。
@@ -1446,31 +1448,29 @@ POST   /api/v1/cases/{id}/close   # 结案操作
 
 **错误码预留**：RULE_DUPLICATE（409）、RULE_NOT_FOUND（404）、RULE_INVALID（400）。
 
-### 5.20 数据同步接口组（Browser 智能体案件抓取·管理端）【2026-09-19 新增】
+### 5.20 数据同步接口组（双入口案件抓取·管理端）【2026-09-19 新增，2026-09-23 按双入口新口径重写】
 
-> 对应 03 §6.16 数据同步（仅系统管理员手动触发）。Browser 智能体为部署在云服务器上的独立抓取服务（Playwright + 人工登录接管），抓取结果以飞书应用身份写入多维表（项目唯一数据源）。数据表 sync_tasks / sync_task_logs（05 建议新增，字段见《05》补充）；本接口组为网页后端与智能体服务之间的边界接口。
+> 对应 03 §6.16 数据同步（双入口）。口径经《00》第十九章评估采纳：入口A（AI 智能体，browser-skill + Playwright，调试/补录）与入口B（本地 FastAPI `http://127.0.0.1:8000` + 纯 Playwright 脚本，业务主入口）输出同一标准 JSON Schema（`case_no` 必填），经**公共飞书写入模块**统一去重写入多维表（缓冲层 + 人工校对），再单向增量同步 **Supabase（业务主库）**，禁止反向写回。数据表 `sync_tasks`/`sync_task_logs` 见《05》；`cases` 增加来源追溯元字段 `crawl_source`/`crawl_time`/`crawl_version`。
 
-**任务状态机**：`QUEUED（排队中）→ WAITING_LOGIN（等待登录·人工接管）→ RUNNING（抓取中）→ WRITING（写入多维表）→ DONE / FAILED / CANCELLED`；FAILED 可重试（从断点续跑，已写入数据以案号幂等去重）。
+**入口B：本地 FastAPI 服务接口**（管理员本机 127.0.0.1:8000，单机单进程；CORS 白名单限定网页部署域名，浏览器拦截本地端口时降级为本地触发页）：
 
-| 接口 | 方法 | 权限 | 说明 |
-|-----|------|------|------|
-| `/api/v1/sync/tasks` | POST | 系统管理员 | 创建同步任务（来源、时间范围/案号区间；单轮上限500条，超限返回 400 SYNC_RANGE_TOO_LARGE）；任务入队后返回 taskId |
-| `/api/v1/sync/tasks` | GET | 系统管理员 | 历史任务列表（分页、按状态/发起人/时间筛选） |
-| `/api/v1/sync/tasks/{taskId}` | GET | 系统管理员 | 任务详情与实时进度（状态、已抓取/预计条数、当前页、重试次数） |
-| `/api/v1/sync/tasks/{taskId}/login-snapshot` | GET | 系统管理员 | 等待登录态时轮询获取登录页截图/二维码（10分钟未接管自动 CANCELLED） |
-| `/api/v1/sync/tasks/{taskId}/login-verify` | POST | 系统管理员 | 人工接管：回传管理员输入的验证码/确认扫码完成，仅当前会话有效、凭据零落库 |
-| `/api/v1/sync/tasks/{taskId}/resume` | POST | 系统管理员 | 任务暂停后继续（如二次验证码、风控拦截人工处理后） |
-| `/api/v1/sync/tasks/{taskId}/cancel` | POST | 系统管理员 | 终止任务（销毁浏览器实例与登录会话，已写入数据保留） |
-| `/api/v1/sync/tasks/{taskId}/retry` | POST | 系统管理员 | 失败任务从断点重试（案号幂等：已存在仅更新变更字段并留痕） |
-| `/api/v1/sync/tasks/{taskId}/logs` | GET | 系统管理员 | 任务操作留痕（打开页面/登录/翻页/解析/写入逐步骤），供审计 |
-| `/api/v1/sync/tasks/{taskId}/report` | GET | 系统管理员 | 下载任务报告（新增/更新/失败清单与原因） |
-| `/api/v1/sync/service/status` | GET | 系统管理员 | 智能体服务运行状态（供驾驶舱监控卡片） |
+| 接口 | 方法 | 说明 |
+|-----|------|------|
+| `/api/crawl-case` | POST | 触发抓取：请求 `{case_url, case_no, operator}`；服务检查任务锁（同一 case_no 处理中返回 409 TASK_PROCESSING）后启动 Playwright（YAML 配置化选择器，`wait_for_selector`/`networkidle` 等待渲染），输出标准 JSON 并调用公共飞书写入模块；返回 taskId |
+| `/api/tasks/{taskId}` | GET | 任务状态轮询（状态机见下），前端轮询展示结果 |
+| `/api/tasks/{taskId}/cancel` | POST | 终止任务（销毁浏览器实例与登录会话，已写入数据保留） |
 
-**智能体服务回调（内网·服务间鉴权）**：智能体服务通过内部回调地址向网页后端推送状态变更（STATE_CHANGED），网页后端再经 WebSocket/SSE 推送到管理端任务面板；回调不暴露公网。
+**公共飞书写入模块（两条链路共用）**：写入前按 `case_no` 查询多维表执行 upsert（不存在→新增/有变更→更新/一致→跳过）；内存任务锁防并发；多维表唯一值约束未经官方证实，实测可用则启用为兜底（重复写入捕获异常转更新）。
 
-**错误码预留**：SYNC_TASK_NOT_FOUND（404）、SYNC_RANGE_TOO_LARGE（400）、SYNC_LOGIN_TIMEOUT（408）、SYNC_CAPTCHA_REQUIRED（428，需人工接管）、SYNC_ANTI_CRAWL（429，风控拦截）、SYNC_BIZ_TABLE_WRITE_FAILED（502，多维表限流重试中）。
+**任务状态机**：`QUEUED（排队中）→ WAITING_LOGIN（等待登录·首次/过期人工接管）→ RUNNING（抓取中）→ WRITING（写入多维表）→ DONE / FAILED / CANCELLED`；FAILED 可重试（从断点续跑，已写入数据以案号幂等去重）；页面加载超时自动重试最多 2 次，元素定位失败自动保存截图。
 
-**安全约束**：登录会话仅存活于单次任务的无头浏览器实例内存，任务结束/取消即销毁；任何接口不得返回人民调解平台的 Cookie/凭据；任务全量操作写入操作日志（审计联动《06》§5.14）。
+**多维表 → Supabase 同步脚本（单向）**：案号主键 upsert；字段变更更新对应记录；多维表删除记录时 Supabase 软删除（标记 `deleted_at`）；定时轮询（MVP：30s/5min）为主，正式阶段可升级飞书 Webhook；同步失败记录日志、下一轮轮询自动重试。
+
+**管理端接口（网页后端）**：`/api/v1/sync/tasks` 列表与详情、`/api/v1/sync/tasks/{taskId}/logs` 任务留痕、`/api/v1/sync/tasks/{taskId}/report` 任务报告（新增/更新/失败清单）、`/api/v1/sync/service/status` 本地抓取服务运行状态（供驾驶舱监控卡片）、`/api/v1/sync/status` 多维表→Supabase 同步状态（最近同步时间/待同步条数/失败告警）。权限均为系统管理员。
+
+**错误码预留**：TASK_PROCESSING（409，同一案件写入中）、SYNC_TASK_NOT_FOUND（404）、SYNC_LOGIN_TIMEOUT（408）、SYNC_CAPTCHA_REQUIRED（428，需人工接管）、SYNC_ANTI_CRAWL（429，风控拦截）、SYNC_BIZ_TABLE_WRITE_FAILED（502，多维表限流重试中）、SYNC_UPSTREAM_FAILED（502，Supabase 同步失败，轮询自动重试）。
+
+**安全约束**：登录会话仅存活于浏览器实例内存（入口B 持久化 Cookie 上下文 / 入口A 单次任务接管），任务结束/取消即销毁；任何接口不得返回人民调解平台的 Cookie/凭据；任务全量操作写入操作日志（审计联动 §5.14）；本地 FastAPI 不监听公网、仅接受白名单来源请求。
 
 ---
 

@@ -26,7 +26,7 @@
 | 调解费报表（四费口径+月结） | admin-fees.html |
 | 系统设置（各法院规则设定：调解费/提成/主管激励） | admin-rules.html |
 | 操作日志 | admin-logs.html |
-| 数据同步任务（智能体同步面板） | admin-sync.html |
+| 数据同步任务（双入口抓取：网页按钮/智能体 + 多维表去重 + Supabase 同步面板） | admin-sync.html |
 
 ### 操作端（调解员 · 9 页）
 | 页面 | 文件 |

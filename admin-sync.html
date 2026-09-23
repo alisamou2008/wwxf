@@ -2,53 +2,64 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数据同步（案件抓取） - 问问调解平台（DEMO）</title>
+<title>数据同步（双入口案件抓取） - 问问调解平台（DEMO）</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body data-endpoint="admin" data-page="sync">
 <div class="main">
   <div class="topbar"><span class="crumb">管理端</span><span class="user"></span></div>
   <div class="content">
-    <div class="page-title">数据同步（Browser 智能体案件抓取）</div>
-    <div class="page-desc">管理员手动触发智能体抓取人民调解平台案件 → 写入飞书多维表（项目唯一数据源） · 2026-09-19 新增模块</div>
-    <div class="note">智能体为部署在云服务器上的独立抓取服务（Playwright 无头浏览器 + 人工登录接管），不内嵌于网页；登录会话仅存活于单次任务、任务结束销毁，凭据零落库；仅系统管理员可触发。数据以案号幂等去重：已存在案件仅更新变更字段并留痕。</div>
+    <div class="page-title">数据同步（双入口案件抓取）</div>
+    <div class="page-desc">入口A（AI 智能体·调试补录）+ 入口B（网页按钮·业务主入口）→ 飞书多维表统一去重（缓冲校对层）→ 单向同步 Supabase（业务主库） · 2026-09-23 按双入口新口径重写</div>
+    <div class="note">入口B 为管理员本机运行的本地 FastAPI 服务（http://127.0.0.1:8000，纯 Playwright 脚本，无 AI 参与抓取，YAML 配置化选择器，页面改版只改配置）；入口A 为 AI 智能体（browser-skill + Playwright），供研发调试与临时补录。两条链路输出同一标准 JSON Schema（案号必填），经公共飞书写入模块以案号 upsert 去重（代码层为主防线；多维表唯一值约束待实测，可用则作并发兜底）。凭据零落库；同步严格单向（多维表→Supabase），禁止反向写回。</div>
 
-    <!-- 区域1：新建同步任务 -->
+    <!-- 区域1：入口B 网页按钮触发抓取 -->
     <div class="rule-card" style="margin-bottom:14px">
-      <b style="font-size:14px">新建同步任务</b>
+      <b style="font-size:14px">入口B：网页按钮触发抓取（业务主入口）</b>
       <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;align-items:center">
+        <input placeholder="案件 URL：https://xxx/case/123456" style="width:280px">
+        <input placeholder="案号：AJ202609001" style="width:160px">
         <select><option>数据来源：人民调解平台</option></select>
-        <select><option>抓取范围：立案日期</option></select>
-        <input type="date" value="2026-09-01" style="width:140px"> <span style="color:var(--text-2)">至</span> <input type="date" value="2026-09-19" style="width:140px">
-        <select><option>法院：全部</option><option>涪陵</option><option>万州</option><option>渝中</option></select>
-        <button class="btn primary demo-btn" data-msg="二次确认：本任务约 128 条（单轮上限 500），开始后需人工完成人民调解平台登录接管（扫码/验证码），登录态仅本次任务有效">开始同步</button>
+        <button class="btn primary demo-btn" data-msg="POST http://127.0.0.1:8000/api/crawl-case：本地服务检查任务锁后启动 Playwright（等待渲染→YAML 选择器提取→输出标准 JSON→公共模块写入多维表），前端轮询任务状态展示结果">抓取案件</button>
       </div>
-      <div style="font-size:11px;color:var(--text-2);margin-top:8px">单轮上限 500 条，超限自动提示分批；任务状态机：排队中 → 等待登录（人工接管）→ 抓取中 → 写入多维表中 → 已完成 / 失败（可重试）</div>
+      <div style="font-size:11px;color:var(--text-2);margin-top:8px">同一案号写入中返回「任务处理中」（内存任务锁，单机边界内有效）；页面加载超时自动重试最多 2 次，元素定位失败自动截图留档；CORS 白名单限定部署域名，浏览器拦截本地端口时降级为本地触发页。</div>
     </div>
 
     <!-- 区域2：进行中任务面板 -->
     <div class="rule-card" style="margin-bottom:14px">
-      <b style="font-size:14px">进行中任务面板 · 任务 SYNC-20260919-001</b>
+      <b style="font-size:14px">进行中任务面板 · 任务 SYNC-20260923-001（入口B · web_button）</b>
       <div style="display:flex;gap:8px;margin:10px 0;flex-wrap:wrap">
-        <span class="badge gray">✓ 排队中</span><span class="badge gray">✓ 等待登录（人工接管）</span><span class="badge blue" style="background:#e8f0ff;color:var(--primary)">● 抓取中（第 3/7 页）</span><span class="badge gray">写入多维表中</span><span class="badge gray">已完成</span>
+        <span class="badge gray">✓ 排队中</span><span class="badge gray">✓ 等待登录（首次/过期）</span><span class="badge blue" style="background:#e8f0ff;color:var(--primary)">● 抓取中（第 3/7 页）</span><span class="badge gray">写入多维表中</span><span class="badge gray">已完成</span>
       </div>
       <div class="progress-track" style="margin-bottom:8px"><div class="progress-fill" style="width:43%"></div></div>
       <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-2)">
         <span>已抓取 55 / 预计 128 · 重试 2 · 耗时 04:12</span>
         <span><button class="btn sm demo-btn" data-msg="暂停后继续：如二次验证码、风控拦截人工处理后恢复任务（演示）">暂停</button> <button class="btn sm danger demo-btn" data-msg="终止任务：销毁浏览器实例与登录会话，已写入数据保留（演示）">终止</button></span>
       </div>
-      <div style="font-size:11px;color:var(--text-2);margin-top:8px">等待登录态示例：面板内嵌人民调解平台登录页截图/二维码，管理员用本人账号扫码或输入验证码完成接管（10 分钟未接管自动取消）；服务器固定 IP + 固定 UA 指纹降低风控触发。</div>
+      <div style="font-size:11px;color:var(--text-2);margin-top:8px">登录态：入口B 复用浏览器 Cookie 的持久化上下文（首次/过期时人工登录）；入口A 在任务面板人工接管（扫码/验证码，10 分钟未接管自动取消）；真实浏览器指纹 + 控制抓取间隔降低风控触发。</div>
     </div>
 
-    <!-- 区域3：历史任务列表 -->
+    <!-- 区域3：多维表校对入口与 Supabase 同步 -->
+    <div class="rule-card" style="margin-bottom:14px">
+      <b style="font-size:14px">多维表校对入口与 Supabase 同步状态</b>
+      <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;align-items:center">
+        <button class="btn demo-btn" data-msg="打开飞书多维表人工校对：管理员核对/修正抓取结果，校对完成的数据由同步脚本单向写入 Supabase（演示）">去多维表校对</button>
+        <button class="btn demo-btn" data-msg="手动触发一次增量同步（MVP 为 30s/5min 定时轮询，正式阶段可升级飞书 Webhook）（演示）">立即同步</button>
+        <span class="badge green">同步正常</span>
+      </div>
+      <div style="font-size:11px;color:var(--text-2);margin-top:8px">最近同步 09-23 10:20 · 待同步 3 条 · 同步失败 0（失败自动下一轮重试）；同步规则：案号主键 upsert、多维表删除记录 → Supabase 软删除（deleted_at）、禁止反向写回。</div>
+    </div>
+
+    <!-- 区域4：历史任务列表 -->
     <div class="tbl-wrap"><table class="tbl">
-      <tr><th>任务号</th><th>发起人</th><th>抓取范围</th><th>抓取条数</th><th>新增</th><th>更新</th><th>写入结果</th><th>耗时</th><th>状态</th><th>操作</th></tr>
-      <tr><td>SYNC-20260918-003</td><td>王管理</td><td>09-17 全部法院</td><td>86</td><td>52</td><td>34</td><td>多维表 · 案件主表</td><td>06:35</td><td><span class="badge green">已完成</span></td><td><button class="btn sm demo-btn" data-msg="任务日志：打开页面/登录/翻页/解析/写入逐步骤留痕（演示）">日志</button> <button class="btn sm demo-btn" data-msg="下载任务报告：新增/更新/失败清单与原因（演示）">报告</button></td></tr>
-      <tr><td>SYNC-20260918-002</td><td>王管理</td><td>09-16~09-17 涪陵</td><td>41</td><td>0</td><td>41</td><td>多维表 · 案件主表</td><td>03:20</td><td><span class="badge green">已完成</span></td><td><button class="btn sm demo-btn">日志</button> <button class="btn sm demo-btn">报告</button></td></tr>
-      <tr><td>SYNC-20260918-001</td><td>王管理</td><td>09-15 万州</td><td>37</td><td>30</td><td>4</td><td>—</td><td>02:10</td><td><span class="badge red">失败（风控拦截）</span></td><td><button class="btn sm primary demo-btn" data-msg="从断点重试：已写入数据以案号幂等去重，不产生脏数据（演示）">重试</button> <button class="btn sm demo-btn">日志</button></td></tr>
-    </table></div>
-    <div style="font-size:11px;color:var(--text-2);margin-top:8px">新入库案件进入「智能分案」待分案池；任务全量操作写入操作日志（审计联动）；后续开放定时同步仅需后端加调度器，本页面无需重构。</div>
-    <div class="footer-note">问问调解平台 DEMO · 智能体独立服务 + 网页端入口 + 多维表唯一数据源</div>
+      <tr><th>任务号</th><th>入口来源</th><th>发起人</th><th>抓取范围</th><th>抓取条数</th><th>新增</th><th>更新</th><th>写入结果</th><th>耗时</th><th>状态</th><th>操作</th></tr>
+      <tr><td>SYNC-20260922-003</td><td><span class="badge blue" style="background:#e8f0ff;color:var(--primary)">web_button</span></td><td>王管理</td><td>指定案号 AJ202609001</td><td>1</td><td>1</td><td>0</td><td>多维表 · 已同步 Supabase</td><td>00:42</td><td><span class="badge green">已完成</span></td><td><button class="btn sm demo-btn" data-msg="任务日志：打开页面/登录/翻页/解析/写入 + 开始结束时间/错误信息/失败截图（演示）">日志</button> <button class="btn sm demo-btn" data-msg="下载任务报告：新增/更新/失败清单与原因（演示）">报告</button></td></tr>
+      <tr><td>SYNC-20260922-002</td><td><span class="badge gray">agent</span></td><td>研发</td><td>09-21~09-22 涪陵</td><td>41</td><td>0</td><td>41</td><td>多维表 · 已同步 Supabase</td><td>03:20</td><td><span class="badge green">已完成</span></td><td><button class="btn sm demo-btn">日志</button> <button class="btn sm demo-btn">报告</button></td></tr>
+      <tr><td>SYNC-20260922-001</td><td><span class="badge blue" style="background:#e8f0ff;color:var(--primary)">web_button</span></td><td>王管理</td><td>09-20 万州</td><td>37</td><td>30</td><td>4</td><td>—</td><td>02:10</td><td><span class="badge red">失败（风控拦截）</span></td><td><button class="btn sm primary demo-btn" data-msg="从断点重试：已写入数据以案号幂等去重，不产生脏数据（演示）">重试</button> <button class="btn sm demo-btn">日志</button></td></tr>
+      </table></div>
+      <div style="font-size:11px;color:var(--text-2);margin-top:8px">入口来源（crawl_source：agent/web_button）用于双链路数据一致性对比（试点验证：同一案件两条链路抓取结果一致率 >90%）；新案件同步入 Supabase 后进入「智能分案」待分案池；任务全量操作写入操作日志（审计联动）。</div>
+      <div class="footer-note">问问调解平台 DEMO · 双入口抓取 + 多维表缓冲校对 + Supabase 业务主库（单向同步）</div>
+    </div>
   </div>
 </div>
 <script src="assets/app.js"></script>
