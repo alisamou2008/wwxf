@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文书管理 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="ops" data-page="docs">
+<div class="main">
+  <div class="topbar"><span class="crumb">操作端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">文书管理</div>
+    <div class="page-desc">双模板组合：系统默认（带法院维度）+ 个人自定义 · 生成/签署/下载</div>
+    <div class="tabs"><div class="tab active">我的文书</div><div class="tab">模板管理</div></div>
+    <div data-tab-panel>
+      <div class="filter-bar">
+        <select><option>全部类型</option><option>调解协议书</option><option>调解笔录</option><option>收费告知书</option><option>延期申请书</option></select>
+        <select><option>全部签署状态</option><option>未签署</option><option>已签署</option></select>
+        <input placeholder="搜索文书名称"><button class="btn primary demo-btn">筛选</button>
+        <button class="btn demo-btn" data-msg="生成新文书（演示）">+ 生成新文书</button>
+      </div>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>文书名称</th><th>类型</th><th>关联案件</th><th>模板</th><th>生成时间</th><th>签署状态</th><th>操作</th></tr>
+        <tr><td>调解协议书-FL...001</td><td>调解协议书</td><td><a href="ops-case-detail.html">FL2026090001</a></td><td>涪陵·民间借贷版</td><td>09-16</td><td><span class="badge orange">未签署</span></td><td>预览 / 在线编辑 / 签署（电子签）/ 重新生成</td></tr>
+        <tr><td>收费告知书-FL...001</td><td>收费告知书</td><td>FL2026090001</td><td>系统通用</td><td>09-12</td><td><span class="badge green">已签署</span></td><td>预览 / 下载</td></tr>
+        <tr><td>延期申请书-WZ...004</td><td>延期申请书</td><td>WZ2026090004</td><td>系统通用</td><td>09-15</td><td><span class="badge orange">待双方签署</span></td><td>签署（双方当事人）/ 上传官方平台</td></tr>
+      </table></div>
+      <div style="font-size:11px;color:var(--text-2);margin-top:8px">延期申请书：延期仅可申请 1 次、固定延长 30 天，需双方当事人签署后上传官方平台完成操作。</div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="tabs" style="margin-top:0"><div class="tab active" style="font-size:13px">系统默认模板（按法院）</div></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>模板名</th><th>类型</th><th>法院维度</th><th>适配说明</th></tr>
+        <tr><td>调解协议书-民间借贷</td><td>调解协议书</td><td>涪陵</td><td>适配承办法官 A 的格式偏好</td></tr>
+        <tr><td>调解协议书-通用</td><td>调解协议书</td><td>通用</td><td>—</td></tr>
+        <tr><td>调解笔录-通用</td><td>调解笔录</td><td>通用</td><td>—</td></tr>
+      </table></div>
+      <div style="margin:14px 0 6px;font-weight:600">个人自定义模板</div>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>模板名</th><th>类型</th><th>操作</th></tr>
+        <tr><td>调解笔录-物业专用</td><td>调解笔录</td><td><button class="btn sm demo-btn">编辑</button> <button class="btn sm danger demo-btn" data-msg="删除模板（二次确认，演示）">删除</button></td></tr>
+      </table></div>
+      <button class="btn primary sm demo-btn" style="margin-top:10px" data-msg="新建模板：支持直接上传 Word 模板完成配置（演示）">+ 新建模板（上传 Word）</button>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 电子签：官方平台可覆盖场景优先用官方免费服务，仅延期等未覆盖场景用第三方（单份约 ¥0.6）</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

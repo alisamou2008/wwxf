@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>调解驾驶舱 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="admin" data-page="dash">
+<div class="main">
+  <div class="topbar"><span class="crumb">管理端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">调解驾驶舱</div>
+    <div class="page-desc">系统管理员首页 · 全平台 7 大监控模块（数据为演示虚构）</div>
+    <div class="note">演示口径：调解费 = 诉讼费（全国统一标的额分段标准）× 法院比例（40%–50% 逐法院预置）；提成核算原值 = 实收调解费总和。</div>
+
+    <div class="grid c4">
+      <div class="stat"><div class="label">在办案件总数</div><div class="value">138</div><div class="delta up">↑ 较上周 +9</div></div>
+      <div class="stat"><div class="label">本月实收调解费</div><div class="value">¥ 86,420</div><div class="delta up">↑ 环比 +12%</div></div>
+      <div class="stat"><div class="label">调解成功率（本月）</div><div class="value">62.4%</div><div class="delta down">↓ 环比 -1.8%</div></div>
+      <div class="stat"><div class="label">待处理事项</div><div class="value" style="color:var(--orange)">7</div><div class="delta">转案审核 3 · 机构绑定 2 · 结案审批 2</div></div>
+    </div>
+
+    <div class="grid c2" style="margin-top:16px">
+      <div class="card">
+        <h3>① 案件量趋势（近 6 个月）</h3>
+        <table class="tbl"><tr><th>月份</th><th>4月</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>9月</th></tr>
+        <tr><td>收案</td><td>61</td><td>72</td><td>58</td><td>80</td><td>74</td><td>77</td></tr>
+        <tr><td>结案</td><td>52</td><td>60</td><td>55</td><td>66</td><td>69</td><td>63</td></tr></table>
+      </div>
+      <div class="card">
+        <h3>② 法院维度概览</h3>
+        <table class="tbl"><tr><th>法院</th><th>在办</th><th>本月收案</th><th>成功率</th></tr>
+        <tr><td>涪陵区人民法院</td><td>62</td><td>35</td><td>65%</td></tr>
+        <tr><td>万州区人民法院</td><td>48</td><td>28</td><td>60%</td></tr>
+        <tr><td>渝中区人民法院</td><td>28</td><td>14</td><td>59%</td></tr></table>
+      </div>
+    </div>
+
+    <div class="grid c2">
+      <div class="card">
+        <h3>③ 期限临期预警（超期/临期案件）</h3>
+        <table class="tbl"><tr><th>案号</th><th>法院</th><th>剩余天数</th><th>调解员</th></tr>
+        <tr><td>FL2026090001</td><td>涪陵</td><td><span class="days-left r">2 天</span></td><td>李调解</td></tr>
+        <tr><td>WZ2026090004</td><td>万州</td><td><span class="days-left r">已超期 1 天</span></td><td>张主管</td></tr>
+        <tr><td>YZ2026090010</td><td>渝中</td><td><span class="days-left o">8 天</span></td><td>王调解</td></tr></table>
+        <div style="font-size:11px;color:var(--text-2);margin-top:8px">时效规则：简易程序 7 天 / 普通程序 15 天；到期前 2–3 天调解员联系当事人确认意向</div>
+      </div>
+      <div class="card">
+        <h3>④ 待审核事项（含转案）</h3>
+        <table class="tbl"><tr><th>类型</th><th>数量</th><th>操作</th></tr>
+        <tr><td><a href="admin-returns.html">转案申请（申请转案）</a></td><td><span class="badge red">3</span></td><td><a href="admin-returns.html"><button class="btn sm primary">去审核</button></a></td></tr>
+        <tr><td>机构绑定审核</td><td><span class="badge orange">2</span></td><td><a href="admin-people.html"><button class="btn sm">去审核</button></a></td></tr>
+        <tr><td>结案审批</td><td><span class="badge blue">2</span></td><td><a href="admin-cases.html"><button class="btn sm">去处理</button></a></td></tr></table>
+      </div>
+    </div>
+
+    <div class="grid c2">
+      <div class="card">
+        <h3>⑤ 费用概览（应收 / 实收 / 退费 / 提成）</h3>
+        <table class="tbl"><tr><th>月份</th><th>应收</th><th>实收</th><th>退费</th><th>提成原值（实收总和）</th></tr>
+        <tr><td>2026-08</td><td>¥102,300</td><td>¥95,600</td><td>¥1,200</td><td>¥95,600</td></tr>
+        <tr><td>2026-09（进行中）</td><td>¥90,150</td><td>¥86,420</td><td>¥0</td><td>¥86,420</td></tr></table>
+      </div>
+      <div class="card">
+        <h3>⑥⑦ 调解员效能 Top5 / 案件类型分布</h3>
+        <table class="tbl"><tr><th>调解员</th><th>结案</th><th>成功率</th><th>实收合计</th></tr>
+        <tr><td>张主管</td><td>21</td><td>71%</td><td>¥28,400</td></tr>
+        <tr><td>李调解</td><td>18</td><td>66%</td><td>¥21,050</td></tr>
+        <tr><td>王调解</td><td>15</td><td>60%</td><td>¥17,800</td></tr></table>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-2)">类型分布：民间借贷 38% · 买卖合同 22% · 物业纠纷 18% · 金融借款 12% · 其他 10%</div>
+      </div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 演示数据虚构 · 仅用于功能校验</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

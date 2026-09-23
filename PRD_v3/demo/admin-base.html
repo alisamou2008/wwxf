@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>基础数据 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="admin" data-page="base">
+<div class="main">
+  <div class="topbar"><span class="crumb">管理端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">基础数据管理</div>
+    <div class="page-desc">法院 / 调解组织 / 案由 / 入驻审核 —— 绑定主数据的唯一来源</div>
+    <div class="tabs"><div class="tab active">法院管理</div><div class="tab">调解组织</div><div class="tab">案由分类</div><div class="tab">入驻项目审核</div></div>
+    <div data-tab-panel">
+      <div class="filter-bar"><input placeholder="搜索法院名称"><button class="btn primary demo-btn">搜索</button><button class="btn demo-btn">新增法院</button></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>法院全称</th><th>简称</th><th>地区</th><th>调解费比例</th><th>分案权重</th><th>合作状态</th><th>操作</th></tr>
+        <tr><td>涪陵区人民法院</td><td>涪陵</td><td>重庆·涪陵</td><td><span class="badge blue">50%</span></td><td>50/30/20</td><td><span class="badge green">合作中</span></td><td><button class="btn sm demo-btn">详情</button> <button class="btn sm demo-btn">分案配置</button></td></tr>
+        <tr><td>万州区人民法院</td><td>万州</td><td>重庆·万州</td><td><span class="badge blue">40%</span></td><td>50/30/20</td><td><span class="badge green">合作中</span></td><td><button class="btn sm demo-btn">详情</button> <button class="btn sm demo-btn">分案配置</button></td></tr>
+        <tr><td>渝中区人民法院</td><td>渝中</td><td>重庆·渝中</td><td><span class="badge blue">45%</span></td><td>50/30/20</td><td><span class="badge green">合作中</span></td><td><button class="btn sm demo-btn">详情</button> <button class="btn sm demo-btn">分案配置</button></td></tr>
+      </table></div>
+      <div style="font-size:11px;color:var(--text-2);margin-top:8px">调解费比例（40%–50%）预置于应收字段：应收 = 诉讼费（全国分段标准）× 法院比例；新增法院后人员才可绑定</div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="tbl-wrap"><table class="tbl"><tr><th>组织名称</th><th>负责人</th><th>合作法院</th><th>状态</th><th>操作</th></tr>
+      <tr><td>涪陵调解中心</td><td>张主管</td><td>涪陵</td><td><span class="badge green">启用</span></td><td><button class="btn sm demo-btn">编辑</button></td></tr>
+      <tr><td>万州调解工作室</td><td>王调解</td><td>万州、渝中</td><td><span class="badge green">启用</span></td><td><button class="btn sm demo-btn">编辑</button></td></tr></table></div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="tbl-wrap"><table class="tbl"><tr><th>案由分类</th><th>案件数</th><th>状态</th></tr>
+      <tr><td>民间借贷</td><td>161</td><td><span class="badge green">启用</span></td></tr>
+      <tr><td>买卖合同</td><td>93</td><td><span class="badge green">启用</span></td></tr>
+      <tr><td>物业纠纷</td><td>76</td><td><span class="badge green">启用</span></td></tr>
+      <tr><td>金融借款</td><td>51</td><td><span class="badge green">启用</span></td></tr></table></div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="tbl-wrap"><table class="tbl"><tr><th>项目</th><th>提交人（主管标识）</th><th>提交时间</th><th>状态</th><th>操作</th></tr>
+      <tr><td>江北区人民法院入驻申请</td><td>张主管</td><td>09-15</td><td><span class="badge orange">待审核</span></td><td><button class="btn sm primary demo-btn" data-msg="通过：法院正式入驻、可配置分案规则（演示）">通过</button> <button class="btn sm danger demo-btn" data-msg="拒绝：填写理由并通知提交人（演示）">拒绝</button></td></tr></table></div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 有关联数据时法院禁止删除</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案件详情 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="ops" data-page="casedetail">
+<div class="main">
+  <div class="topbar"><span class="crumb">操作端</span>
+    <span class="user"></span>
+    <button id="ai-toggle" class="btn sm primary" style="margin-left:16px">✦ AI 助手</button>
+  </div>
+  <div class="content">
+    <div class="page-title">← 案件详情 - FL2026090001</div>
+    <div class="page-desc">[法院：涪陵区人民法院] [状态：调解中] [调解员：李调解] [简易程序 · 剩余 <span class="days-left r">2 天</span>]</div>
+    <div class="tabs">
+      <div class="tab active">基本信息</div><div class="tab">当事人信息</div><div class="tab">调解记录</div>
+      <div class="tab">外呼记录</div><div class="tab">文书管理</div><div class="tab">分案与审计</div><div class="tab">案件AI分析（后续）</div><div class="tab">费用</div>
+    </div>
+    <div data-tab-panel>
+      <div class="card"><h3>基本信息（调解员可编辑案情分析等字段）</h3>
+        <div class="tbl-wrap"><table class="tbl">
+          <tr><th>案号</th><td>FL2026090001</td><th>案由</th><td>民间借贷</td></tr>
+          <tr><th>标的额</th><td>¥50,000</td><th>审理程序</th><td>简易程序</td></tr>
+          <tr><th>调解截止</th><td>2026-09-18</td><th>案件状态</th><td>调解中</td></tr>
+          <tr><th>案情分析</th><td colspan="3">原告主张借款本金 5 万元及约定利息，被告对利息计算方式有异议…… <button class="btn sm demo-btn">编辑</button></td></tr>
+        </table></div>
+      </div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="card"><h3>当事人信息（仅本人案件可见）</h3>
+        <div class="tbl-wrap"><table class="tbl"><tr><th>角色</th><th>姓名</th><th>手机号</th><th>同意调解</th></tr>
+        <tr><td>原告</td><td>陈某</td><td>139****1234</td><td><span class="badge green">是</span></td></tr>
+        <tr><td>被告</td><td>刘某</td><td>137****5678</td><td><span class="badge green">是</span></td></tr></table></div>
+      </div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="card"><h3>调解记录（时间线）</h3>
+        <table class="tbl"><tr><th>时间</th><th>地点</th><th>参与人</th><th>内容</th><th>结果</th><th>操作</th></tr>
+        <tr><td>09-13 10:00</td><td>涪陵法院 3 憩</td><td>李调解/陈某/刘某</td><td>首轮面对面调解</td><td>分歧：利息算法</td><td><button class="btn sm demo-btn">编辑</button></td></tr>
+        <tr><td>09-15 15:00</td><td>网络会议</td><td>李调解/陈某</td><td>背对背沟通</td><td>原告愿让步</td><td><button class="btn sm demo-btn">编辑</button></td></tr></table>
+        <div style="margin-top:10px;display:flex;gap:8px"><button class="btn primary sm demo-btn" data-msg="新增调解记录（演示）">+ 新增调解记录</button><button class="btn sm demo-btn" data-msg="发起网络会议（演示）">发起会议</button></div>
+      </div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="card"><h3>外呼记录（必须上传录音）</h3>
+        <table class="tbl"><tr><th>时间</th><th>对象</th><th>时长</th><th>结果</th><th>录音</th></tr>
+        <tr><td>09-12 09:30</td><td>被告</td><td>324 秒</td><td><span class="badge green">接通-有意愿</span></td><td>▶ 播放</td></tr></table>
+        <div style="margin-top:10px"><a href="ops-calls.html"><button class="btn primary sm">+ 新增外呼记录</button></a></div>
+      </div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="card"><h3>文书管理（系统模板 + 个人自定义模板）</h3>
+        <table class="tbl"><tr><th>名称</th><th>类型</th><th>模板</th><th>签署状态</th><th>操作</th></tr>
+        <tr><td>收费告知书</td><td>收费告知书</td><td>涪陵默认</td><td><span class="badge green">已签署</span></td><td>预览 / 下载</td></tr>
+        <tr><td>调解协议书（草稿）</td><td>调解协议书</td><td>涪陵·民间借贷版</td><td><span class="badge orange">未签署</span></td><td>预览 / 在线编辑 / 签署</td></tr></table>
+        <div style="margin-top:10px"><a href="ops-docs.html"><button class="btn primary sm">+ 生成新文书</button></a></div>
+      </div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="card"><h3>分案与审计</h3>
+        <table class="tbl"><tr><th>分案时间</th><th>方式</th><th>调解员</th></tr><tr><td>09-11</td><td><span class="badge blue">智能分案</span></td><td>李调解</td></tr></table>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-2)">无力调解？走「申请转案」：必填理由 → 管理员审核 → 同意后进入转案池由管理员重新指派（直接换人）。</div>
+        <button class="btn sm demo-btn" style="margin-top:8px" data-msg="申请转案：必填理由，提交管理员审核（演示）">申请转案</button>
+      </div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="card" style="opacity:.6"><h3>案件AI分析（后续阶段占位，第一阶段隐藏）</h3>
+      <div style="font-size:12px;color:var(--text-2)">AI 案件分析报告 / 类案检索 / 调解策略建议 / 法规推荐。网页端 AI 智能体以「案件内侧边栏 AI 助手」形态落地（点击顶部 ✦ AI 助手 体验演示）。</div></div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="card"><h3>费用（本人案件可录入）</h3>
+        <div class="grid c4" style="margin-bottom:10px">
+          <div class="stat"><div class="label">应收（系统算）</div><div class="value">¥525</div><div class="delta">诉讼费 ¥1,050 × 50%</div></div>
+          <div class="stat"><div class="label">实收</div><div class="value">¥500</div></div>
+          <div class="stat"><div class="label">退费</div><div class="value">¥0</div></div>
+          <div class="stat"><div class="label">费用状态</div><div class="value" style="font-size:16px"><span class="badge green">已结清</span></div></div>
+        </div>
+        <div style="display:flex;gap:8px"><button class="btn primary sm demo-btn" data-msg="登记实收：金额/方式/时间/凭证（演示）">登记实收</button><button class="btn sm demo-btn" data-msg="登记退费：原因必填（演示）">登记退费</button></div>
+      </div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 演示数据虚构</div>
+  </div>
+</div>
+
+<!-- AI 侧边栏（后续阶段功能演示） -->
+<div class="ai-panel" id="ai-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h4>✦ AI 调解助手</h4><button id="ai-close" class="btn sm">✕</button>
+  </div>
+  <div style="font-size:11px;color:var(--text-2)">已绑定案件：FL2026090001（切换案件自动切换会话）</div>
+  <div class="ai-warn">⚠ AI生成内容仅供办案参考，正式文书请人工核对修正</div>
+  <div class="ai-quick">
+    <button class="btn sm ai-quick-btn">提炼争议焦点</button>
+    <button class="btn sm ai-quick-btn">生成调解话术</button>
+    <button class="btn sm ai-quick-btn">生成协议初稿</button>
+    <button class="btn sm ai-quick-btn">案件风险识别</button>
+  </div>
+  <div id="ai-msgs">
+    <div class="ai-msg">你好，我是本案的 AI 调解助手，可基于当前案件数据（案情、调解记录）辅助办案。点击快捷指令或直接提问。</div>
+  </div>
+  <div class="ai-input"><input placeholder="输入问题…（经后端中转调用，前端零密钥）"><button class="btn sm primary ai-quick-btn">发送</button></div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

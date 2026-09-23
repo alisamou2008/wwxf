@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>转案管理 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="admin" data-page="returns">
+<div class="main">
+  <div class="topbar"><span class="crumb">管理端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">转案管理（转案池与重新指派）</div>
+    <div class="page-desc">调解员/主管因无力调解退回案件的统一处理入口 · 2026-09-17 新增模块</div>
+    <div class="note">重新指派 = 直接换人，不纳入智能分案平均分配、不回流公共分案池；权限与初始分案独立拆分，当前仅系统管理员可操作，不下放调解主管。</div>
+    <div class="tabs"><div class="tab active">待审核申请（3）</div><div class="tab">转案池（5）</div></div>
+    <div data-tab-panel>
+      <div class="grid c4" style="margin-bottom:14px">
+        <div class="stat"><div class="label">待审核</div><div class="value" style="color:var(--red)">3</div></div>
+        <div class="stat"><div class="label">本周新增</div><div class="value">3</div></div>
+        <div class="stat"><div class="label">本月同意</div><div class="value">5</div></div>
+        <div class="stat"><div class="label">本月驳回</div><div class="value">2</div></div>
+      </div>
+      <div class="filter-bar"><select><option>全部法院</option><option>涪陵</option><option>万州</option></select><select><option>全部申请人</option><option>调解员</option><option>主管</option></select><input placeholder="搜索案号/当事人"><button class="btn primary demo-btn">筛选</button></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>案号</th><th>法院</th><th>类型</th><th>标的额</th><th>原调解员</th><th>申请人</th><th>申请时间</th><th>申请理由</th><th>操作</th></tr>
+        <tr><td>WZ2026090015</td><td>万州</td><td>民间借贷</td><td>¥30,000</td><td>李调解</td><td>李调解</td><td>09-16 14:20</td><td>被告长期在外地，无法到庭</td><td><button class="btn sm primary demo-btn" data-msg="同意：案件进入转案池（演示）">同意</button> <button class="btn sm danger demo-btn" data-msg="驳回：需填写原因并回传申请人（演示）">驳回</button></td></tr>
+        <tr><td>FL2026090008</td><td>涪陵</td><td>物业纠纷</td><td>¥8,000</td><td>王调解</td><td>王调解</td><td>09-16 16:05</td><td>与被告存在利益关联需回避</td><td><button class="btn sm primary demo-btn" data-msg="同意（演示）">同意</button> <button class="btn sm danger demo-btn" data-msg="驳回（演示）">驳回</button></td></tr>
+        <tr><td>YZ2026090003</td><td>渝中</td><td>买卖合同</td><td>¥56,000</td><td>张主管</td><td>张主管（主管）</td><td>09-17 09:12</td><td>系列案需集中由专人处理</td><td><button class="btn sm primary demo-btn" data-msg="同意（演示）">同意</button> <button class="btn sm danger demo-btn" data-msg="驳回（演示）">驳回</button></td></tr>
+      </table></div>
+      <div style="font-size:11px;color:var(--text-2);margin-top:8px">同一案件同一时刻仅允许一条待审核申请（重复发起拦截 409 CASE_RETURN_PENDING）；驳回原因必填并回传申请人。</div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th><input type="checkbox"></th><th>案号</th><th>法院</th><th>类型</th><th>标的额</th><th>原调解员</th><th>退回日期</th><th>退回原因</th><th>滞留天数</th><th>操作</th></tr>
+        <tr><td><input type="checkbox"></td><td>WZ2026090009</td><td>万州</td><td>金融借款</td><td>¥200,000</td><td>王调解</td><td>09-12</td><td>调解员病假</td><td><span class="badge red">滞留 5 天</span></td><td><button class="btn sm primary demo-btn" data-msg="指派新调解员：弹出人员选择器（限该法院派驻、启用状态，演示）">指派新调解员</button></td></tr>
+        <tr><td><input type="checkbox"></td><td>FL2026090006</td><td>涪陵</td><td>物业纠纷</td><td>¥15,000</td><td>李调解</td><td>09-14</td><td>当事人申请更换调解员</td><td><span class="badge orange">滞留 3 天</span></td><td><button class="btn sm primary demo-btn" data-msg="指派新调解员（演示）">指派新调解员</button></td></tr>
+        <tr><td><input type="checkbox"></td><td>YZ2026090007</td><td>渝中</td><td>民间借贷</td><td>¥42,000</td><td>张主管</td><td>09-15</td><td>被告下落不明</td><td><span class="badge gray">滞留 2 天</span></td><td><button class="btn sm primary demo-btn" data-msg="指派新调解员（演示）">指派新调解员</button></td></tr>
+      </table></div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn primary demo-btn" data-msg="批量指派：多选案件一次性指派给同一调解员（演示）">批量指派</button>
+        <span style="font-size:11px;color:var(--text-2);align-self:center">指派完成向新旧调解员发通知，写入分案记录（方式=人工指派）与审计日志</span>
+      </div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 全链路（申请/审核/指派）留痕</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

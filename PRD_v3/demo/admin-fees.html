@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>调解费报表 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="admin" data-page="fees">
+<div class="main">
+  <div class="topbar"><span class="crumb">管理端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">调解费报表（全平台）</div>
+    <div class="page-desc">应收 / 实收 / 退费 / 提成，可下钻逐案逐笔 · 次月 1 号生成上月报表快照</div>
+    <div class="note">口径（2026-09-16 校准）：应收调解费 = 诉讼费（全国统一标的额分段标准）× 法院比例（40%–50% 逐法院预置）；提成核算原值 = 实收调解费总和，档位细则待业务补充，过渡期沿用「实收−退费」。</div>
+    <div class="filter-bar">
+      <select><option>2026-09（实时累计）</option><option>2026-08（正式快照）</option><option>2026-07（正式快照）</option></select>
+      <select><option>全部法院</option><option>涪陵</option><option>万州</option><option>渝中</option></select>
+      <select><option>全部调解员</option><option>张主管</option><option>李调解</option><option>王调解</option></select>
+      <button class="btn primary demo-btn">查询</button><button class="btn demo-btn">导出月度结算表</button><button class="btn demo-btn" data-msg="手动重跑当月报表（留痕，演示）">手动重跑</button>
+    </div>
+    <div class="grid c4" style="margin-bottom:16px">
+      <div class="stat"><div class="label">应收合计</div><div class="value">¥90,150</div></div>
+      <div class="stat"><div class="label">实收合计</div><div class="value">¥86,420</div><div class="delta up">收缴率 95.9%</div></div>
+      <div class="stat"><div class="label">退费合计</div><div class="value">¥0</div></div>
+      <div class="stat"><div class="label">提成原值（实收总和）</div><div class="value">¥86,420</div></div>
+    </div>
+    <div class="card">
+      <h3>调解员费用数据表（行=调解员，可展开逐案明细）</h3>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>调解员</th><th>所属法院/组织</th><th>计费案件数</th><th>标的合计</th><th>应收</th><th>实收</th><th>退费</th><th>提成（过渡口径）</th><th>费用状态</th></tr>
+        <tr><td>张主管</td><td>涪陵 / 涪陵调解中心</td><td>12</td><td>¥78万</td><td>¥32,400</td><td>¥31,200</td><td>¥0</td><td>¥31,200</td><td><span class="badge green">已结清</span></td></tr>
+        <tr><td>李调解</td><td>涪陵 / 涪陵调解中心</td><td>10</td><td>¥42万</td><td>¥28,150</td><td>¥26,870</td><td>¥0</td><td>¥26,870</td><td><span class="badge orange">部分收</span></td></tr>
+        <tr><td>王调解</td><td>万州 / 万州调解工作室</td><td>9</td><td>¥51万</td><td>¥29,600</td><td>¥28,350</td><td>¥0</td><td>¥28,350</td><td><span class="badge green">已结清</span></td></tr>
+      </table></div>
+      <div style="margin-top:10px"><button class="btn sm demo-btn" data-msg="展开行：逐案明细（标的/应收/实收/退费/提成/费用状态），再下钻每笔流水（演示）">▼ 展开逐案明细</button></div>
+    </div>
+    <div class="card">
+      <h3>异常提示</h3>
+      <table class="tbl"><tr><th>类型</th><th>对象</th><th>说明</th></tr>
+      <tr><td><span class="badge orange">折让预警</span></td><td>李调解 · FL2026090005</td><td>实收/应收 82%，低于阈值 85%，报表标黄（仅提示不阻断）</td></tr>
+      <tr><td><span class="badge blue">费用纠错</span></td><td>—</td><td>冲销/补录仅系统管理员可操作，必须填写原因并写操作日志</td></tr></table>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 2026-08 及以前的正式报表快照数值已定格，作为结算对账依据</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

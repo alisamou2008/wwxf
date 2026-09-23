@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>调解进度看板 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="ops" data-page="board">
+<div class="main">
+  <div class="topbar"><span class="crumb">操作端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">调解进度看板</div>
+    <div class="page-desc">操作端专属 · 列口径对齐案件状态机（《04》5.9，与《00》5.4 一致）：已指派（无受理确认）→ 研判中 → 通知中（待明示同意）→ 意愿确认 → 争议识别（无/有争议分叉）→ 调解中 → 待签协议 → 签署中 → 待效力固化 → 已结案</div>
+    <div class="note">拖拽为演示交互；结案/司法确认等关键节点触发审批弹窗（管理员或带主管标识调解员审批）+留痕；「通知中」需在线调解明示同意（电子签前置）方可推进。</div>
+    <div class="kanban">
+      <div class="col"><h4>已指派 <span>2</span></h4>
+        <div class="kcard"><b>FL2026090016</b>民间借贷 · ¥2万<div style="margin-top:4px;color:var(--text-2)">剩余 7 天</div></div>
+        <div class="kcard"><b>WZ2026090017</b>物业纠纷 · ¥0.68万<div style="margin-top:4px;color:var(--text-2)">剩余 15 天</div></div>
+      </div>
+      <div class="col"><h4>研判中 <span>1</span></h4>
+        <div class="kcard"><b>YZ2026090010</b>买卖合同 · ¥8.6万<div style="margin-top:4px;color:var(--text-2)">剩余 8 天 · 阅卷/回避审查</div></div>
+      </div>
+      <div class="col"><h4>通知中 <span>1</span></h4>
+        <div class="kcard"><b>FL2026090009</b>物业纠纷 · ¥1.2万<div style="margin-top:4px;color:var(--text-2)">待明示同意（consentRecordId）</div></div>
+      </div>
+      <div class="col"><h4>意愿确认 <span>1</span></h4>
+        <div class="kcard"><b>WZ2026090012</b>民间借贷 · ¥3万<div style="margin-top:4px;color:var(--text-2)">愿 / 不愿</div></div>
+      </div>
+      <div class="col"><h4>争议识别 <span>1</span></h4>
+        <div class="kcard"><b>YZ2026090014</b>买卖合同 · ¥6万<div style="margin-top:4px;color:var(--text-2)">无争议→4A / 有争议→4B</div></div>
+      </div>
+      <div class="col"><h4>调解中 <span>2</span></h4>
+        <div class="kcard"><b>FL2026090001</b>民间借贷 · ¥5万<div style="margin-top:4px;color:var(--red)">⚠ 剩余 2 天</div></div>
+        <div class="kcard"><b>WZ2026090008</b>物业纠纷 · ¥0.9万<div style="margin-top:4px;color:var(--text-2)">多轮方案比选</div></div>
+      </div>
+      <div class="col"><h4>待签协议 <span>1</span></h4>
+        <div class="kcard"><b>WZ2026090004</b>金融借款 · ¥12万<div style="margin-top:4px;color:var(--red)">⚠ 已超期</div></div>
+      </div>
+      <div class="col"><h4>签署中 <span>1</span></h4>
+        <div class="kcard"><b>FL2026090002</b>电子签三阶段<div style="margin-top:4px;color:var(--text-2)">当事人→调解员→组织盖章</div></div>
+      </div>
+      <div class="col"><h4>待效力固化 <span>1</span></h4>
+        <div class="kcard"><b>WZ2026090011</b>司法确认<div style="margin-top:4px;color:var(--text-2)">30 日内共同申请 · 到期前 7 天提醒</div></div>
+      </div>
+      <div class="col"><h4>已结案 <span>2</span></h4>
+        <div class="kcard"><b>WZ2026090002</b>调解书 · 09-15</div>
+        <div class="kcard"><b>FL2026090005</b>司法确认 · 09-10<button class="btn sm primary demo-btn" style="margin-top:6px" data-msg="结案审批：管理员或带主管标识调解员审批，动作写审计日志（演示）">审批留痕</button></div>
+      </div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 结案/司法确认状态由代码从官方平台自动同步（仅结案状态、结案日期、司法确认申请状态三类字段）</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

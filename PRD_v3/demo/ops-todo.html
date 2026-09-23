@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>待办事项 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="ops" data-page="todo">
+<div class="main">
+  <div class="topbar"><span class="crumb">操作端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">待办事项</div>
+    <div class="page-desc">分类计数标签页：待调解 / 待签署 / 待结案 / 待转案（申请转案审核中/被驳回）</div>
+    <div class="tabs"><div class="tab">待调解（2）</div><div class="tab">待签署（1）</div><div class="tab">待结案（1）</div><div class="tab active">待转案（2）</div></div>
+    <div data-tab-panel">
+      <div class="filter-bar"><select><option>全部类型</option><option>民间借贷</option><option>买卖合同</option></select><input placeholder="搜索"><button class="btn primary demo-btn">搜索</button></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th><input type="checkbox"></th><th>案号</th><th>类型</th><th>标的</th><th>分配时间</th><th>剩余时间</th><th>操作</th></tr>
+        <tr><td><input type="checkbox"></td><td><a href="ops-case-detail.html">FL2026090016</a></td><td>民间借贷</td><td>¥20,000</td><td>09-17 09:12</td><td><span class="days-left g">7 天</span></td><td><span class="badge gray">转案审核中</span> <button class="btn sm demo-btn" data-msg="催办审核（演示）">催办</button></td></tr>
+        <tr><td><input type="checkbox"></td><td>WZ2026090017</td><td>物业纠纷</td><td>¥6,800</td><td>09-17 08:40</td><td><span class="days-left g">15 天</span></td><td><span class="badge red">转案被驳回</span> <button class="btn sm demo-btn" data-msg="再次申请转案：必填理由（演示）">再次申请</button></td></tr>
+      </table></div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="tbl-wrap"><table class="tbl"><tr><th>案号</th><th>事项</th><th>建议动作</th></tr>
+      <tr><td>FL2026090001</td><td>联系当事人确认调解意向（临期）</td><td><a href="ops-calls.html"><button class="btn sm primary">去外呼</button></a></td></tr></table></div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="tbl-wrap"><table class="tbl"><tr><th>案号</th><th>文书</th><th>操作</th></tr>
+      <tr><td>FL2026090002</td><td>调解协议书（电子签）</td><td><a href="ops-docs.html"><button class="btn sm primary">去签署</button></a></td></tr></table></div>
+    </div>
+    <div data-tab-panel style="display:none">
+      <div class="tbl-wrap"><table class="tbl"><tr><th>案号</th><th>结果</th><th>操作</th></tr>
+      <tr><td>WZ2026090004</td><td>调解成功（待提交结案审批）</td><td><button class="btn sm primary demo-btn" data-msg="提交结案：管理员或带主管标识调解员审批（演示）">提交结案审批</button></td></tr></table></div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 标记完成仅在待办列表隐藏，案件状态不变</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>调解排期日历 - 问问调解平台（DEMO）</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-endpoint="ops" data-page="schedule">
+<div class="main">
+  <div class="topbar"><span class="crumb">操作端</span><span class="user"></span></div>
+  <div class="content">
+    <div class="page-title">调解排期日历</div>
+    <div class="page-desc">操作端专属 · 调解员资源视图：时间占用 / 场地 / 参与人 / 冲突检测 · 周/月切换</div>
+    <div class="filter-bar">
+      <button class="btn sm">← 上周</button><span style="font-weight:600">2026-09-14 ~ 09-20（周视图）</span><button class="btn sm demo-btn">下周 →</button>
+      <select><option>周视图</option><option>月视图</option></select>
+      <select><option>涪陵区人民法院（场地）</option><option>线上会议</option></select>
+      <button class="btn primary demo-btn" data-msg="新增排期：选择案件/时间/场地/参与人，自动冲突检测（演示）">+ 新增排期</button>
+    </div>
+    <div class="card">
+      <div class="cal">
+        <div style="font-weight:600;text-align:center;color:var(--text-2)">周一 09-14</div><div style="font-weight:600;text-align:center;color:var(--text-2)">周二 09-15</div><div style="font-weight:600;text-align:center;color:var(--text-2)">周三 09-16</div><div style="font-weight:600;text-align:center;color:var(--text-2)">周四 09-17</div><div style="font-weight:600;text-align:center;color:var(--text-2)">周五 09-18</div><div style="font-weight:600;text-align:center;color:var(--text-2)">周六 09-19</div><div style="font-weight:600;text-align:center;color:var(--text-2)">周日 09-20</div>
+        <div class="cell"><div class="d">09-14</div><div class="ev">10:00 调解 FL...001（涪陵3憩）</div><div class="ev ok">15:00 外呼跟进 WZ...004</div></div>
+        <div class="cell"><div class="d">09-15</div><div class="ev">14:00 网络会议 YZ...010</div></div>
+        <div class="cell"><div class="d">09-16</div><div class="ev">10:00 调解 FL...002</div><div class="ev" style="background:#feeceb;color:var(--red)">⚠ 10:00 冲突：FL...003</div></div>
+        <div class="cell"><div class="d">09-17</div><div class="ev">09:30 外呼 FL...001 当事人</div></div>
+        <div class="cell"><div class="d">09-18</div><div class="ev">调解截止 FL...001</div></div>
+        <div class="cell"><div class="d">09-19</div></div>
+        <div class="cell"><div class="d">09-20</div></div>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:var(--text-2)">⚠ 红色为冲突检测命中：同一调解员同一时段存在多个排期，提交时阻断并提示调整。</div>
+    </div>
+    <div class="footer-note">问问调解平台 DEMO · 演示数据虚构</div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>
